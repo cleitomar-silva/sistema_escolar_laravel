@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Chamado;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $chamados = Chamado::all();
+        $user = Auth::user();
+        $chamados = Chamado::where('user_id','=',$user->id)->get();
         return view('home', compact('chamados'));
     }
 
